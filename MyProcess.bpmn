@@ -7,7 +7,7 @@
         <activiti:formProperty id="LastName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="Surname" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="MiddleName" name="По батькові" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="email" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="Email" name="email" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="Phone" name="Телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="Residence_address" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="Passport_series_and_number" name="Серія та номер паспорту" type="string"></activiti:formProperty>
@@ -35,11 +35,13 @@
     </startEvent>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <sequenceFlow id="flow4" name="Інформація не надана коректно" sourceRef="exclusivegateway1" targetRef="servicetask3"></sequenceFlow>
+    <sequenceFlow id="flow4" name="Інформація не надана коректно" sourceRef="exclusivegateway1" targetRef="servicetask3">
+  	<conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='reject'}]]></conditionExpression>
+    </sequenceFlow>
     <serviceTask id="servicetask3" name="Надсилання повідомлення про відмову з поясненням причини">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[${email}
+          <activiti:expression><![CDATA[${Email}
 ]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
@@ -62,10 +64,7 @@
 	[pattern/mail/new_design/_common_signature_start.html]
 	${sNameOrgan}<br />
 	[pattern/mail/new_design/_common_signature_end.html]
-	[pattern/mail/new_design/_common_footer.html]
-
-
-]]></activiti:expression>
+	[pattern/mail/new_design/_common_footer.html]]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -77,7 +76,7 @@
         <activiti:formProperty id="LastName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="MiddleName" name="По батькові" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="email" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Email" name="email" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Phone" name="Телефон" type="string" default="+380" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Residence_address" name="Адреса проживання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Passport_series_and_number" name="Серія та номер паспорту" type="string" writable="false"></activiti:formProperty>
@@ -116,7 +115,7 @@
         <activiti:formProperty id="LastName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="MiddleName" name="По батькові" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="email" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Email" name="email" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Phone" name="Телефон" type="string" default="+380" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Residence_address" name="Адреса проживання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Passport_series_and_number" name="Серія та номер паспорту" type="string" writable="false"></activiti:formProperty>
@@ -140,19 +139,22 @@
         <activiti:formProperty id="sWorkTime" name="графік роботи оргструктури (району) ; ;bVisible=false" type="string"></activiti:formProperty>
         <activiti:formProperty id="sShapka_spend_meeting_404" name="Керівнику якого робочого органу ; ;bVisible=false" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Дата подачі заяви ; ;bVisible=false" type="string"></activiti:formProperty>
-        <activiti:formProperty id="decision_1" name="Прийняте рішення щодо розгляду повідомлення" type="enum">
+        <activiti:formProperty id="decision_2" name="Прийняте рішення щодо розгляду повідомлення" type="enum">
           <activiti:value id="accept" name="надати дозвіл"></activiti:value>
           <activiti:value id="reject" name="відмовити у розгляданні дозволу"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment_1" name="У разі відмови поясніть причину" type="textArea"></activiti:formProperty>
+       <activiti:formProperty id="comment_2" name="У разі відмови поясніть причину" type="textArea"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow14" name="Інформація надана коректно" sourceRef="exclusivegateway1" targetRef="usertask2"></sequenceFlow>
+    <sequenceFlow id="flow14" name="Інформація надана коректно" sourceRef="exclusivegateway1" targetRef="usertask2">
+    	<conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='accept'}]]></conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="flow15" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
     <serviceTask id="servicetask7" name="Надсилання повідомлення про відмову з поясненням причини">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[${email}]]></activiti:expression>
+          <activiti:expression><![CDATA[${Email}
+]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -174,19 +176,19 @@
 	[pattern/mail/new_design/_common_signature_start.html]
 	${sNameOrgan}<br />
 	[pattern/mail/new_design/_common_signature_end.html]
-	[pattern/mail/new_design/_common_footer.html]
-
-
-]]></activiti:expression>
+	[pattern/mail/new_design/_common_footer.html]]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow16" name="Відхилено" sourceRef="exclusivegateway2" targetRef="servicetask7"></sequenceFlow>
+    <sequenceFlow id="flow16" name="Відхилено" sourceRef="exclusivegateway2" targetRef="servicetask7">
+    	<conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='reject'}]]></conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="flow17" sourceRef="servicetask7" targetRef="endevent2"></sequenceFlow>
     <serviceTask id="servicetask8" name="Надсилання повідомлення з підтвердженням видачі дозволу">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[${email}]]></activiti:expression>
+          <activiti:expression><![CDATA[${Email}
+]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -207,12 +209,13 @@
 						[pattern/mail/new_design/_common_signature_start.html]
 						${sNameOrgan}<br />
 						[pattern/mail/new_design/_common_signature_end.html]
-						[pattern/mail/new_design/_common_footer.html]
-]]></activiti:expression>
+						[pattern/mail/new_design/_common_footer.html]]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow18" name="Прийнято" sourceRef="exclusivegateway2" targetRef="servicetask8"></sequenceFlow>
+    <sequenceFlow id="flow18" name="Прийнято" sourceRef="exclusivegateway2" targetRef="servicetask8">
+    	<conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='accept'}]]></conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="flow19" sourceRef="servicetask8" targetRef="endevent3"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_myProcess">
