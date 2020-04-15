@@ -39,7 +39,7 @@
     <serviceTask id="servicetask3" name="Надсилання повідомлення про відмову з поясненням причини">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[${Email}
+          <activiti:expression><![CDATA[${email}
 ]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
@@ -152,8 +152,7 @@
     <serviceTask id="servicetask7" name="Надсилання повідомлення про відмову з поясненням причини">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[${Email}
-]]></activiti:expression>
+          <activiti:expression><![CDATA[${email}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -187,8 +186,7 @@
     <serviceTask id="servicetask8" name="Надсилання повідомлення з підтвердженням видачі дозволу">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[${Email}
-]]></activiti:expression>
+          <activiti:expression><![CDATA[${email}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
