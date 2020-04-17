@@ -122,7 +122,7 @@
         <activiti:formProperty id="Download_a_scanned_copy_of_your_passport" name="Завантажте скановану копію паспорта" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Name_of_Company" name="Назва підприємства" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="KVED" name="КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="EDRPOU" name="ЄДРПОУ" type="string"></activiti:formProperty>
+        <activiti:formProperty id="EDRPOU" name="ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Location_of_enterprise" name="Місцезнаходження підприємства" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Location_of_the_object" name="Вказати місцезнаходження (адреса) об’єкта, на який видається дозвіл" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Where_work_is _planned" name="Вказати де плануються вести роботи (від .. і до ..)" type="string" writable="false"></activiti:formProperty>
